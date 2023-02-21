@@ -13,19 +13,30 @@ const Visitas = db.define('TCC01_visitas',{
     nombre:{
         type:DataTypes.STRING
     },
-    descripcion:{
+    dpi:{
         type:DataTypes.STRING
     },
-    estado:{
-        type:DataTypes.BOOLEAN,
-        defaultValue:true
+    personaVista:{
+        type:DataTypes.STRING
+    },
+    empresa:{
+        type:DataTypes.STRING
+    },
+    horaEntrada:{
+        type:DataTypes.STRING
+    },
+    horaSalida:{
+        type:DataTypes.STRING
+    },
+    descripcion:{
+        type:DataTypes.STRING
     },
     created_at: {
         type:DataTypes.DATE
     },
    
 },{
-    timestamps: false
+    timestamps: true
 });
 
 export default Visitas

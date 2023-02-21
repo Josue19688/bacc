@@ -3,6 +3,7 @@ import {Router} from 'express';
 import {check} from 'express-validator';
 
 import { getUserDetails, getUsuarios, postUsuarios, putUsuario, deleteUsuario, login } from '../controllers/usuariosController';
+import { deleteVisita, getVisita, getVisitas, postVisitas, putVisita } from '../controllers/visitas';
 import { validarCampos } from '../middlewares/validator-campos';
 
 
@@ -22,6 +23,20 @@ router.delete('/usuario/:id',deleteUsuario);
  * Autenticacion de usuarios
  */
 router.post('/auth',login);
+
+
+
+/**
+ * Autenticacion de usuarios
+ */
+
+router.get('/visita/:id',getVisita);
+router.get('/visita',getVisitas);
+router.post('/visita',postVisitas);
+router.put('/visita/:id',putVisita);
+router.delete('/visita/:id',deleteVisita);
+
+
 
 // router.post('/login',[
 //     check('correo','El correo es obligatorio').isEmail().notEmpty(),

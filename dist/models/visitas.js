@@ -14,17 +14,28 @@ const Visitas = connection_1.default.define('TCC01_visitas', {
     nombre: {
         type: sequelize_1.DataTypes.STRING
     },
-    descripcion: {
+    dpi: {
         type: sequelize_1.DataTypes.STRING
     },
-    estado: {
-        type: sequelize_1.DataTypes.BOOLEAN,
-        defaultValue: true
+    personaVista: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    empresa: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    horaEntrada: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    horaSalida: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    descripcion: {
+        type: sequelize_1.DataTypes.STRING
     },
     created_at: {
         type: sequelize_1.DataTypes.DATE
     },
 }, {
-    timestamps: false
+    timestamps: true
 });
 exports.default = Visitas;
