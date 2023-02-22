@@ -32,9 +32,6 @@ const Visitas = connection_1.default.define('TCC01_visitas', {
     descripcion: {
         type: sequelize_1.DataTypes.STRING
     },
-    created_at: {
-        type: sequelize_1.DataTypes.DATE
-    },
 }, {
     timestamps: true
 });

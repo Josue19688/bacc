@@ -76,7 +76,6 @@ export const postVisitas =async (req:Request, res:Response) => {
         }).catch(error=>{
             return res.status(400).json({
                 ok:false,
-                error,
                 msg:'Error al crear el registro'
             })
         });

@@ -31,10 +31,7 @@ const Visitas = db.define('TCC01_visitas',{
     descripcion:{
         type:DataTypes.STRING
     },
-    created_at: {
-        type:DataTypes.DATE
-    },
-   
+    
 },{
     timestamps: true
 });

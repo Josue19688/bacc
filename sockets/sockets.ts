@@ -20,9 +20,7 @@ export const conectarClinte=(cliente:Socket,io:socketIO.Server)=>{
 
 export const loginWS=(cliente:Socket,io:socketIO.Server)=>{
     cliente.on('configurar-usuario',(payload:{nombre:string}, callback:Function)=>{
-
-
-
+       
         usuarioConectados.actualizarNombre(cliente.id,payload.nombre);
         io.emit('usuarios-activos',usuarioConectados.getLista());
         callback({
