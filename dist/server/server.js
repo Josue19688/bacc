@@ -80,11 +80,15 @@ class ServerSocket {
             socket.loginWS(cliente, this.io);
             //obtener usuarios activos
             socket.obtenerUsuarios(cliente, this.io);
+            /**
+             * Metodos socket para visitas
+             */
+            socket.mensaje(cliente, this.io);
             //aqui iran todos los metodos que quiero emitir 
             //o escuchar de los sockets
             //socket.desconectar(cliente,this.io);
-            socket.mensaje(cliente, this.io);
-            socket.mensaje2(cliente, this.io);
+            // socket.mensaje(cliente,this.io);
+            // socket.mensaje2(cliente,this.io);
         });
     }
     start(callback) {

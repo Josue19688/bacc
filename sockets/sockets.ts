@@ -4,7 +4,8 @@ import { Socket } from "socket.io";
 import socketIO from 'socket.io';
 import { UserList } from "../classes/usuarios-lista";
 import { Usuario } from "../classes/usuario";
-import Capacitaciones from "../models/capacitacionasistencia";
+import Visitas from "../models/visitas";
+
 
 export const usuarioConectados=new UserList();
 
@@ -41,11 +42,6 @@ export const obtenerUsuarios=(cliente:Socket,io:socketIO.Server)=>{
 }
 
 
-
-
-
-
-
 export const desconectar = (cliente:Socket,io:socketIO.Server)=>{
     cliente.on('disconnect',()=>{
         usuarioConectados.borrarUsuario(cliente.id);
@@ -56,17 +52,36 @@ export const desconectar = (cliente:Socket,io:socketIO.Server)=>{
 
 //TODO: agarraremos este metodo como modelo para manipular datos entre la base de dtos y el backend
 
+/**
+ *  Escuchar el metodo para crear y retornar VISITAS SOCKET
+ * @param cliente Cliente conectado via socket
+ * @param io Instancia de socket 
+ */
 
-//escuchar mensjaes
 export const mensaje=(cliente:Socket, io:socketIO.Server)=>{
-    cliente.on('mensaje',(payload:{de:string, cuerpo:string})=>{
-        console.log('Mensaje recibido', payload);//esto nos trae el nombre de usuarios qeu dira presente
-        
-        Capacitaciones.create({nombre:payload.de,mensaje:payload.cuerpo})
-                .then(()=>console.log('Insertado Correctamente!!'))
-                .catch(error=>console.log(error));
+    cliente.on('mensaje',(payload:{nombre:string, 
+        dpi:string, 
+        personaVista:string,
+        empresa:string,
+        horaEntrada:string,
+        horaSalida:string,
+        descripcion:string})=>{
+        console.log('Mensaje recibido', payload);
+    
 
-        io.emit('mensaje-nuevo',payload);
+        Visitas.create({
+            nombre:payload.nombre,
+            dpi:payload.dpi,
+            personaVista:payload.personaVista,
+            empresa:payload.empresa,
+            horaEntrada:payload.horaEntrada,
+            horaSalida:payload.horaSalida,
+            descripcion:payload.descripcion
+        }).then(()=>{
+            console.log('Insertado Correctamente!!');
+            io.emit('mensaje-nuevo',payload);
+        })
+        .catch(error=>console.log(error));
     })
 }
 ///metodo socket para seguridad y su vista de datos en tiempo real 

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.mensaje2 = exports.mensaje = exports.desconectar = exports.obtenerUsuarios = exports.loginWS = exports.conectarClinte = exports.usuarioConectados = void 0;
 const usuarios_lista_1 = require("../classes/usuarios-lista");
 const usuario_1 = require("../classes/usuario");
-const capacitacionasistencia_1 = __importDefault(require("../models/capacitacionasistencia"));
+const visitas_1 = __importDefault(require("../models/visitas"));
 exports.usuarioConectados = new usuarios_lista_1.UserList();
 const conectarClinte = (cliente, io) => {
     const usuario = new usuario_1.Usuario(cliente.id);
@@ -39,14 +39,27 @@ const desconectar = (cliente, io) => {
 };
 exports.desconectar = desconectar;
 //TODO: agarraremos este metodo como modelo para manipular datos entre la base de dtos y el backend
-//escuchar mensjaes
+/**
+ *  Escuchar el metodo para crear y retornar VISITAS SOCKET
+ * @param cliente Cliente conectado via socket
+ * @param io Instancia de socket
+ */
 const mensaje = (cliente, io) => {
     cliente.on('mensaje', (payload) => {
-        console.log('Mensaje recibido', payload); //esto nos trae el nombre de usuarios qeu dira presente
-        capacitacionasistencia_1.default.create({ nombre: payload.de, mensaje: payload.cuerpo })
-            .then(() => console.log('Insertado Correctamente!!'))
+        console.log('Mensaje recibido', payload);
+        visitas_1.default.create({
+            nombre: payload.nombre,
+            dpi: payload.dpi,
+            personaVista: payload.personaVista,
+            empresa: payload.empresa,
+            horaEntrada: payload.horaEntrada,
+            horaSalida: payload.horaSalida,
+            descripcion: payload.descripcion
+        }).then(() => {
+            console.log('Insertado Correctamente!!');
+            io.emit('mensaje-nuevo', payload);
+        })
             .catch(error => console.log(error));
-        io.emit('mensaje-nuevo', payload);
     });
 };
 exports.mensaje = mensaje;
