@@ -31,12 +31,20 @@ export const getVisita =async (req:Request, res:Response) => {
 }
 
 export const getVisitas =async (req:Request, res:Response) => {
+
+    const {proceso} = req.query;
+
     
     try {
-        const visitas = await Visitas.findAll();
+        const visitas = await Visitas.findAll({
+            where:{
+                estado:proceso
+            }
+        });
         res.json({
             ok:true,
-            visitas
+            visitas,
+            proceso
         })
     } catch (error) {
         return res.status(400).json({

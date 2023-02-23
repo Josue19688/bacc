@@ -33,8 +33,8 @@ const Visitas = connection_1.default.define('TCC01_visitas', {
         type: sequelize_1.DataTypes.STRING
     },
     estado: {
-        type: sequelize_1.DataTypes.BOOLEAN,
-        defaultValue: true
+        type: sequelize_1.DataTypes.STRING,
+        defaultValue: 'DENTRO'
     }
 }, {
     timestamps: true
