@@ -4,6 +4,7 @@ import {check} from 'express-validator';
 
 import { getUserDetails, getUsuarios, postUsuarios, putUsuario, deleteUsuario, login } from '../controllers/usuariosController';
 import { deleteVisita, getVisita, getVisitas, postVisitas, putVisita } from '../controllers/visitas';
+import { validarToken } from '../middlewares/validarJWT';
 import { validarCampos } from '../middlewares/validator-campos';
 
 
@@ -13,7 +14,8 @@ export const router = Router();
 /**
  * Ruteo de usuarios 
  */
-router.get('/usuario',getUsuarios);
+router.get('/usuario',
+    validarToken,getUsuarios);
 router.get('/usuario/:id',getUserDetails);
 router.post('/usuario',postUsuarios);
 router.put('/usuario/:id',putUsuario);
@@ -23,6 +25,7 @@ router.delete('/usuario/:id',deleteUsuario);
  * Autenticacion de usuarios
  */
 router.post('/auth',login);
+//router.get('/',validarJWT);
 
 
 

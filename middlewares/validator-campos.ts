@@ -10,3 +10,5 @@ export const validarCampos = (req:Request,res:Response,next:any)=>{
     }
     next();
 }
+
+

@@ -4,11 +4,12 @@ exports.router = void 0;
 const express_1 = require("express");
 const usuariosController_1 = require("../controllers/usuariosController");
 const visitas_1 = require("../controllers/visitas");
+const validarJWT_1 = require("../middlewares/validarJWT");
 exports.router = (0, express_1.Router)();
 /**
  * Ruteo de usuarios
  */
-exports.router.get('/usuario', usuariosController_1.getUsuarios);
+exports.router.get('/usuario', validarJWT_1.validarToken, usuariosController_1.getUsuarios);
 exports.router.get('/usuario/:id', usuariosController_1.getUserDetails);
 exports.router.post('/usuario', usuariosController_1.postUsuarios);
 exports.router.put('/usuario/:id', usuariosController_1.putUsuario);
@@ -17,6 +18,7 @@ exports.router.delete('/usuario/:id', usuariosController_1.deleteUsuario);
  * Autenticacion de usuarios
  */
 exports.router.post('/auth', usuariosController_1.login);
+//router.get('/',validarJWT);
 /**
  * Autenticacion de usuarios
  */
